@@ -8,6 +8,7 @@ const User = require("../models/Restaurent");
 
 exports.getProducts = (req, res, next) => {
   const userid = req.userId;
+
   User.findById(userid).populate("dishes")
     .then((user) => {
       // console.log(user.posts);
