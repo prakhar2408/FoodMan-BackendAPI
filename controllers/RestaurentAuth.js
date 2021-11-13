@@ -31,6 +31,7 @@ exports.signup = (req, res, next) => {
         restaurentName: name,
         contact: contact,
         minBill: minBill,
+        // location: { type: "point", coordinates: [83.5816047, 25.5831217] },
         address: {
           aptName: aptName,
           locality: locality,
