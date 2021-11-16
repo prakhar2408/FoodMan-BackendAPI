@@ -22,26 +22,45 @@ const customerSchema = new Schema({
   address: {
     aptName: {
       type: String,
-
     },
     locality: {
       type: String,
-
     },
     street: {
       type: String,
-
     },
     zipCode: {
       type: Number,
-
     },
   },
   Cart: {
     items: [
       {
-        type: Schema.Types.ObjectId,
-        ref: "Dish",
+        dishName: {
+          type: String,
+          required: true,
+        },
+        url: {
+          type: String,
+          required: true,
+        },
+        discount: {
+          type: String,
+          required: true,
+        },
+        price: {
+          type: String,
+          required: true,
+        },
+        restaurent: {
+          type: Schema.Types.ObjectId,
+          ref: "Restaurent",
+          required: true,
+        },
+        quantity: {
+          type: String,
+          required: true,
+        },
       },
     ],
     totalQuantity: {
@@ -49,10 +68,8 @@ const customerSchema = new Schema({
     },
     totalAmount: {
       type: String,
-
     },
   },
-
 });
 
 module.exports = mongoose.model("Customer", customerSchema);
