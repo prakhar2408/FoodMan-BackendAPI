@@ -1,18 +1,17 @@
-// const { validationResult } = require('express-validator/check');
+const { validationResult } = require("express-validator/check");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const User = require("../models/Restaurent");
 
 exports.signup = (req, res, next) => {
-  //   const errors = validationResult(req);
-  //   if (!errors.isEmpty()) {
-  //     const error = new Error('Validation failed.');
-  //     error.statusCode = 422;
-  //     error.data = errors.array();
-  //     throw error;
-  //   }
-  // console.log(req.body);
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const error = new Error("Validation failed.");
+    error.statusCode = 422;
+    error.data = errors.array();
+    throw error;
+  }
   const email = req.body.email;
   const name = req.body.name;
   const password = req.body.password;
@@ -69,7 +68,7 @@ exports.login = (req, res, next) => {
     .then((isEqual) => {
       if (!isEqual) {
         const error = new Error("Wrong password!");
-        error.statusCode = 401;
+        error.statusCode = 402;
         throw error;
       }
       const token = jwt.sign(

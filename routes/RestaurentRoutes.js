@@ -1,12 +1,29 @@
 const express = require("express");
+const { body } = require("express-validator/check");
 const authController = require("../controllers/RestaurentAuth");
 const productController = require("../controllers/Product");
 const isAuth = require("../middleware/is-auth");
-
+const User = require("../models/Restaurent");
 const router = express.Router();
 
 //Auth Routes
-router.post("/signup", authController.signup);
+router.post(
+  "/signup",
+  [
+    body("email")
+      .isEmail()
+      .withMessage("Please enter a valid email.")
+      .custom((value, { req }) => {
+        return User.findOne({ email: value }).then((userDoc) => {
+          if (userDoc) {
+            return Promise.reject("E-Mail address already exists!");
+          }
+        });
+      })
+      .normalizeEmail(),
+  ],
+  authController.signup
+);
 router.post("/login", authController.login);
 
 //Product Routes
